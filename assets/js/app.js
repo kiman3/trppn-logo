@@ -21,6 +21,7 @@ const vertexWidthTop = radiusOuter*0.02;
 const vertexWidthBottom = vertexWidthTop/2;
 
 // Styles
+logo.style.maxWidth = size + 'px';
 const colorBackground = 0;
 const colorFill = [0, 255, 225];
 
@@ -39,6 +40,13 @@ function setup(){
   vizCanvas.parent('logo');
   vizCanvas.id('trppnSpectrum');
   vizCanvas.class('trppnSpectrum');
+
+  // DOM responsivity
+  vizCanvasElem = document.getElementById('trppnSpectrum');
+  vizCanvasElem.style.width = 'auto';
+  vizCanvasElem.style.height = 'auto';
+  vizCanvasElem.style.maxWidth = '100%';
+  vizCanvasElem.style.maxHeight = '100%';
 
   // Set styles
   noStroke();

@@ -50,6 +50,7 @@ body{
 
 	#logo{
 		position: relative;
+		width: 90%;
 	}
 
 	#btnPlay, #btnPause{
