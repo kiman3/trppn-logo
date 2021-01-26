@@ -1,13 +1,13 @@
 // DOM
 const logo = document.getElementById('logo');
 const playBtn = document.getElementById('btnPlay');
-const pauseBtn = document.getElementById('btnPause');
 
 // P5.js config
 let fft, input, inputSource;
+let _isPlaying = false;
 
 // FFT config
-const smoothing = 0;
+const smoothing = 0.25;
 const binCount = 128; // Must be a power of 2 between 16 and 1024 
 
 // Logo parameters
@@ -72,14 +72,17 @@ function draw(){
 
   // Center + transform origin
   translate (center, center);
+  rotate(180);
 
   // Draw logo shape
   for (i = 0; i < lines; i ++){
+    spectrumLevel = map(spectrum[i], 0, 255, 1, 1.5);
+
     beginShape();
-      vertex(-vertexWidthBottom, radiusInner/level);
-      vertex(vertexWidthBottom, radiusInner/level);
-      vertex(vertexWidthTop, radiusOuter*level);
-      vertex(-vertexWidthTop, radiusOuter*level);
+      vertex(-vertexWidthBottom, radiusInner/spectrumLevel);
+      vertex(vertexWidthBottom, radiusInner/spectrumLevel);
+      vertex(vertexWidthTop, radiusOuter*spectrumLevel);
+      vertex(-vertexWidthTop, radiusOuter*spectrumLevel);
     endShape();
     rotate(rotation);
   }
@@ -89,10 +92,14 @@ function draw(){
 
 // DOM Controls
 playBtn.addEventListener('click', function(){
-  getAudioContext().resume();
-  input.loop();
-});
-
-pauseBtn.addEventListener('click', function(){
-  input.pause();
+  if (!_isPlaying){
+    getAudioContext().resume();
+    input.loop();
+    _isPlaying = true;
+    this.innerHTML = 'Pause';
+  } else{
+    input.pause();
+    _isPlaying = false;
+    this.innerHTML = 'Play';
+  }
 });
