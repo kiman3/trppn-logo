@@ -8,7 +8,7 @@ let _isPlaying = false;
 
 // FFT config
 const smoothing = 0.25;
-const binCount = 128; // Must be a power of 2 between 16 and 1024 
+const binCount = 128; // FFT.analyze array size. Must be a power of 2 between 16 and 1024 
 
 // Logo parameters
 const size = 1000;
@@ -68,7 +68,7 @@ function draw(){
 
   let spectrum = fft.analyze();
 
-  // Center + transform origin
+  // Center + transform origin + flip
   translate (center, center);
   rotate(180);
 
@@ -82,6 +82,7 @@ function draw(){
       vertex(vertexWidthTop, radiusOuter*spectrumLevel);
       vertex(-vertexWidthTop, radiusOuter*spectrumLevel);
     endShape();
+
     rotate(rotation);
   }
 
