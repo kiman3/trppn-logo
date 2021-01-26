@@ -66,8 +66,6 @@ function setup(){
 function draw(){
   clear();
 
-  let level = amplitude.getLevel();
-  level = map(level, 0, 1, 1, 3)
   let spectrum = fft.analyze();
 
   // Center + transform origin
