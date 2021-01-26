@@ -1,5 +1,5 @@
 :root{
-	--background: #000000;
+	--black: #000000;
 	--white: #ffffff;
 	--brand: #00FFE1;
 
@@ -10,12 +10,14 @@
 	box-sizing: border-box;
 }
 
-html{}
+html{
+	font-size: 62.5%;
+}
 
 body{
-	background: var(--background);
+	background: var(--black);
 	color: var(--brand);
-	font: 400 1em/1.25 var(--font);
+	font: 400 1.6rem/1.25 var(--font);
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
 	margin: 0;
@@ -56,14 +58,15 @@ body{
 
 	.btn{
 		background: none;
+		background: var(--brand);
 		border: none;
-		border-radius: 0;
+		border-radius: 3rem;
 		box-shadow: none;
-		color: inherit;
+		color: var(--black);
 		cursor: pointer;
 		font: inherit;
 		outline: none;
-		padding: 0;
+		padding: 0.5rem 1rem;
 
 		position: fixed;
 			top: 1rem;
@@ -71,19 +74,20 @@ body{
 	}
 
 		.btn:hover{
-			color: var(--white);
+			background: var(--white);
+			color: var(--black);
 		}
 
 		#btnPlay{
 			position: fixed;
-				top: 5rem;
-				left: 2rem;
+				top: 8rem;
+				left: 3rem;
 		}
 
 	#wordmark{
 		position: absolute;
-			top: 2rem;
-			left: 2rem;
+			top: 3rem;
+			left: 3rem;
 		width: 100%;
 			max-width: 150px;
 	}
