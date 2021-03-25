@@ -7,18 +7,18 @@ let fft, input, inputSource;
 let _isPlaying = false;
 
 // FFT config
-const smoothing = 0.25;
-const binCount = 128; // FFT.analyze array size. Must be a power of 2 between 16 and 1024 
+const smoothing = 0.4;
+const binCount = 32; // FFT.analyze array size. Must be a power of 2 between 16 and 1024 
 
 // Logo parameters
 const size = 1000;
 const center = size/2;
 const radiusOuter = size*0.2;
-const radiusInner = size*0.125;
-const lines = 90;
+const radiusInner = size*0.1;
+const lines = 18;
 const rotation = 360/lines;
-const vertexWidthTop = radiusOuter*0.02;
-const vertexWidthBottom = vertexWidthTop/2;
+const vertexWidthTop = radiusOuter*0.085;
+const vertexWidthBottom = vertexWidthTop/2.5;
 
 // Styles
 logo.style.maxWidth = size + 'px';
@@ -74,7 +74,7 @@ function draw(){
 
   // Draw logo shape
   for (i = 0; i < lines; i ++){
-    spectrumLevel = map(spectrum[i], 0, 255, 1, 1.5);
+    spectrumLevel = map(spectrum[i], 0, 255, 1, 1.3);
 
     beginShape();
       vertex(-vertexWidthBottom, radiusInner/spectrumLevel);
