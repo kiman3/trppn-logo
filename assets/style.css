@@ -47,6 +47,7 @@ body{
 		align-items: center;
 		justify-content: center;
 	height: 100vh;
+	overflow: hidden;
 	padding: 0;
 	width: 100vw;
 }
@@ -54,6 +55,12 @@ body{
 	#logo{
 		position: relative;
 		width: 90%;
+	}
+
+	.btns{
+		position: fixed;
+			top: 8rem;
+			left: 3rem;
 	}
 
 	.btn{
@@ -64,13 +71,11 @@ body{
 		box-shadow: none;
 		color: var(--black);
 		cursor: pointer;
+		display: inline-block;
 		font: inherit;
+		margin-right: 0.25rem;
 		outline: none;
 		padding: 0.5rem 1rem;
-
-		position: fixed;
-			top: 1rem;
-			left: 1rem;
 	}
 
 		.btn:hover{
@@ -79,9 +84,6 @@ body{
 		}
 
 		#btnPlay{
-			position: fixed;
-				top: 8rem;
-				left: 3rem;
 		}
 
 	#wordmark{

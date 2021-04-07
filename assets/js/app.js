@@ -1,13 +1,14 @@
 // DOM
 const logo = document.getElementById('logo');
 const playBtn = document.getElementById('btnPlay');
+const micBtn = document.getElementById('btnMic');
 
 // P5.js config
-let fft, input, inputSource;
+let fft, input, audioFile;
 let _isPlaying = false;
 
 // FFT config
-const smoothing = 0.4;
+const smoothing = 0.3;
 const binCount = 32; // FFT.analyze array size. Must be a power of 2 between 16 and 1024 
 
 // Logo parameters
@@ -26,11 +27,12 @@ const colorBackground = 0;
 const colorFill = [0, 255, 225];
 
 // Input source
-inputSource = "assets/audio/snippet.mp3";
+audioFile = "assets/audio/snippet.mp3";
 
 // Preload (if audio file)
 function preload(){
-  input = loadSound(inputSource);
+  audioLoaded = loadSound(audioFile);
+  soundFormats('mp3', 'ogg');
 }
 
 // Setup p5
@@ -57,9 +59,11 @@ function setup(){
   angleMode(DEGREES);
 
   // Sound setup
+  input = audioLoaded;
+  mic = new p5.AudioIn();
+
   fft = new p5.FFT(smoothing, binCount);
   fft.setInput(input);
-  amplitude = new p5.Amplitude();
 }
 
 // Draw every frame
@@ -74,11 +78,23 @@ function draw(){
 
   // Draw logo shape
   for (i = 0; i < lines; i ++){
-    spectrumLevel = map(spectrum[i], 0, 255, 1, 1.3);
+    if (i === lines - 1){
+      // To smooth out the circle between first and last line
+      spectrumLevelCurrent = spectrum[i];
+      spectrumLevelFirst = spectrum[0];
+
+      if (spectrumLevelFirst > spectrumLevelCurrent){
+        spectrumLevel = map(spectrum[0], 0, 255, 1, 1.15);
+      } else{
+        spectrumLevel = map(spectrum[i], 0, 255, 1, 1.3);
+      }
+    } else{
+      spectrumLevel = map(spectrum[i], 0, 255, 1, 1.3);
+    }
 
     beginShape();
-      vertex(-vertexWidthBottom, radiusInner/spectrumLevel);
-      vertex(vertexWidthBottom, radiusInner/spectrumLevel);
+      vertex(-vertexWidthBottom, radiusInner/1);
+      vertex(vertexWidthBottom, radiusInner/1);
       vertex(vertexWidthTop, radiusOuter*spectrumLevel);
       vertex(-vertexWidthTop, radiusOuter*spectrumLevel);
     endShape();
@@ -88,12 +104,18 @@ function draw(){
 
 }
 
+function audioAllow(){
+  getAudioContext().resume();
+}
 
 // DOM Controls
 playBtn.addEventListener('click', function(){
+  audioAllow();
+  input.stop();
+  input = audioLoaded;
+
   if (!_isPlaying){
-    getAudioContext().resume();
-    input.loop();
+    input.play();
     _isPlaying = true;
     this.innerHTML = 'Pause';
   } else{
@@ -101,4 +123,14 @@ playBtn.addEventListener('click', function(){
     _isPlaying = false;
     this.innerHTML = 'Play';
   }
+});
+
+micBtn.addEventListener('click', function(){
+  audioAllow();
+  _isPlaying = false;
+  input.stop();
+  playBtn.innerHTML = 'Play';
+  input = mic;
+  input.start();
+  fft.setInput(input);
 });
