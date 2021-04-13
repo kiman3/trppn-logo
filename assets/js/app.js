@@ -14,8 +14,8 @@ const binCount = 32; // FFT.analyze array size. Must be a power of 2 between 16 
 // Logo parameters
 const size = 1000;
 const center = size/2;
-const radiusOuter = size*0.2;
-const radiusInner = size*0.1;
+const radiusOuter = size*0.3;
+const radiusInner = size*0.15;
 const lines = 18;
 const rotation = 360/lines;
 const vertexWidthTop = radiusOuter*0.085;

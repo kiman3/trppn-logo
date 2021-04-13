@@ -46,19 +46,26 @@ body{
 	display: flex;
 		align-items: center;
 		justify-content: center;
-	height: 100vh;
+	height: 100%;
 	overflow: hidden;
 	padding: 0;
-	width: 100vw;
+	position: absolute;
+		top: 0;
+		left: 0;
+	width: 100%;
 }
 
 	#logo{
+		display: flex;
+			align-items: center;
+			justify-content: center;
+		height: 80%;
 		position: relative;
-		width: 90%;
+		width: 80%;
 	}
 
 	.btns{
-		position: fixed;
+		position: absolute;
 			top: 8rem;
 			left: 3rem;
 	}
